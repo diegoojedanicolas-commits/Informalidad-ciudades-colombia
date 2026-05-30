@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proporción de Informalidad Colombia · DANE · El Espectador</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@400;600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rojo: #c8102e;
+    --rojo-oscuro: #9b0c22;
+    --negro: #111111;
+    --gris-oscuro: #2a2a2a;
+    --gris-medio: #555555;
+    --gris-claro: #e8e8e8;
+    --fondo: #f5f3ef;
+    --blanco: #ffffff;
+    --aumento: #c8102e;
+    --disminucion: #1a6e3c;
+    --neutro: #555;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--fondo);
+    color: var(--negro);
+    min-height: 100vh;
+  }
+
+  .header-top {
+    background: var(--negro);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .header-tag {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rojo);
+    border: 1px solid var(--rojo);
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .hero {
+    background: var(--negro);
+    padding: 28px 20px 36px;
+    border-bottom: 3px solid var(--rojo);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border: 1px solid rgba(200,16,46,0.12);
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 220px; height: 220px;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 50%;
+  }
+
+  .hero-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-kicker {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rojo);
+    margin-bottom: 10px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    color: var(--blanco);
+    line-height: 1.1;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title em {
+    color: var(--rojo);
+    font-style: normal;
+  }
+
+  .hero-sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.55;
+    max-width: 520px;
+  }
+
+  .hero-meta {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .meta-chip {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.45);
+    padding: 4px 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px;
+  }
+
+  .search-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 28px 20px 0;
+  }
+
+  .search-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gris-medio);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .search-wrapper {
+    position: relative;
+  }
+
+  .search-bar {
+    width: 100%;
+    padding: 16px 52px 16px 18px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--negro);
+    background: var(--blanco);
+    border: 2px solid var(--negro);
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .search-bar:focus {
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(200,16,46,0.1);
+  }
+
+  .search-bar::placeholder { color: #aaa; }
+
+  .search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .search-icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--gris-medio);
+  }
+
+  .suggestions {
+    background: var(--blanco);
+    border: 2px solid var(--negro);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    max-height: 240px;
+    overflow-y: auto;
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  .suggestions.visible { display: block; }
+
+  .suggestion-item {
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--gris-claro);
+    transition: background 0.15s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .suggestion-item:last-child { border-bottom: none; }
+  .suggestion-item:hover { background: #fdf0f2; }
+
+  .suggestion-city { font-weight: 600; color: var(--negro); }
+  .suggestion-rate {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gris-medio);
+    background: var(--gris-claro);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .results-area {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    display: none;
+  }
+
+  .no-results.visible { display: block; }
+  .no-results-icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+  .no-results-text {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    color: var(--gris-medio);
+  }
+
+  .city-card {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    animation: slideIn 0.3s ease;
+    margin-bottom: 16px;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    background: var(--negro);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .card-city-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--blanco);
+    line-height: 1.2;
+  }
+
+  .card-city-name small {
+    display: block;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  .card-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .diff-badge {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .diff-badge.baja {
+    background: rgba(26,110,60,0.2);
+    color: #6ee09a;
+  }
+
+  .diff-badge.sube {
+    background: rgba(200,16,46,0.25);
+    color: #ff7d8f;
+  }
+
+  .diff-badge.igual {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+  }
+
+  .card-rates {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .rate-block {
+    padding: 14px 16px;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .rate-block.periodo-anterior {
+    background: #f7f7f7;
+    border: 1px solid #e0e0e0;
+  }
+
+  .rate-block.periodo-actual {
+    background: #fff5f7;
+    border: 2px solid var(--rojo);
+  }
+
+  .rate-period {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gris-medio);
+    margin-bottom: 6px;
+  }
+
+  .rate-block.periodo-actual .rate-period { color: var(--rojo); }
+
+  .rate-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--negro);
+    line-height: 1;
+  }
+
+  .rate-block.periodo-actual .rate-value { color: var(--rojo); }
+
+  .rate-value sup {
+    font-size: 1rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    vertical-align: super;
+  }
+
+  .card-bar-section {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--gris-claro);
+  }
+
+  .bar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gris-medio);
+    margin-bottom: 10px;
+  }
+
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .bar-period-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gris-medio);
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .bar-track {
+    flex: 1;
+    background: var(--gris-claro);
+    height: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0;
+  }
+
+  .bar-fill.anterior { background: #ccc; }
+  .bar-fill.actual { background: var(--rojo); }
+
+  .bar-pct {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--negro);
+    width: 42px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .card-context {
+    padding: 14px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .context-item {
+    text-align: center;
+    padding: 10px 8px;
+    background: var(--fondo);
+    border-radius: 3px;
+  }
+
+  .context-value {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--negro);
+  }
+
+  .context-label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--gris-medio);
+    margin-top: 3px;
+  }
+
+  .card-ranking {
+    padding: 14px 20px 18px;
+    background: #fafafa;
+    border-top: 1px solid var(--gris-claro);
+  }
+
+  .ranking-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gris-medio);
+    margin-bottom: 10px;
+  }
+
+  .ranking-bar {
+    position: relative;
+    height: 6px;
+    background: var(--gris-claro);
+    border-radius: 3px;
+    margin-bottom: 6px;
+  }
+
+  .ranking-marker {
+    position: absolute;
+    top: -5px;
+    width: 16px; height: 16px;
+    background: var(--rojo);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    border: 2px solid var(--blanco);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ranking-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    color: var(--gris-medio);
+    font-weight: 600;
+  }
+
+  .ranking-position {
+    font-size: 0.8rem;
+    color: var(--gris-medio);
+    text-align: center;
+  }
+
+  .ranking-position strong { color: var(--negro); }
+
+  .all-cities-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    display: none;
+  }
+
+  .all-cities-section.visible { display: block; }
+
+  .section-divider {
+    border: none;
+    border-top: 2px solid var(--negro);
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    color: var(--negro);
+  }
+
+  .cities-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .cities-table thead th {
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gris-medio);
+    border-bottom: 2px solid var(--negro);
+    background: transparent;
+  }
+
+  .cities-table thead th:not(:first-child) { text-align: right; }
+
+  .cities-table tbody tr {
+    border-bottom: 1px solid var(--gris-claro);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .cities-table tbody tr:hover { background: #fdf0f2; }
+
+  .cities-table tbody td {
+    padding: 10px 10px;
+    vertical-align: middle;
+  }
+
+  .cities-table tbody td:not(:first-child) { text-align: right; }
+
+  .city-name-cell { font-weight: 600; color: var(--negro); }
+  .city-name-cell.is-total { font-weight: 700; color: var(--rojo); }
+
+  .rate-cell { font-weight: 600; }
+
+  .diff-cell {
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .diff-cell.baja { background: rgba(26,110,60,0.1); color: var(--disminucion); }
+  .diff-cell.sube { background: rgba(200,16,46,0.08); color: var(--aumento); }
+  .diff-cell.igual { color: var(--gris-medio); background: var(--gris-claro); }
+
+  .source-line {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px 32px;
+    font-size: 0.72rem;
+    color: var(--gris-medio);
+    line-height: 1.6;
+  }
+
+  .source-line strong { color: var(--negro); }
+
+  .footer {
+    background: var(--negro);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .show-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid var(--negro);
+    border-radius: 3px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--negro);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .show-all-btn:hover {
+    background: var(--negro);
+    color: var(--blanco);
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 46px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gris-medio);
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 4px;
+    display: none;
+  }
+
+  .clear-btn.visible { display: block; }
+
+  @media (max-width: 480px) {
+    .card-rates { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .card-context { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .context-value { font-size: 0.95rem; }
+    .rate-value { font-size: 1.8rem; }
+    .cities-table { font-size: 0.8rem; }
+    .cities-table tbody td { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header-top">
+  <div class="header-tag">Datos · Mercado Laboral</div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Informalidad laboral</p>
+    <h1 class="hero-title">Proporción de población<br>ocupada <em>informal</em></h1>
+    <p class="hero-sub">Consulta la proporción de informalidad en las 23 ciudades y áreas metropolitanas. Datos del trimestre móvil febrero – abril 2025 y 2026.</p>
+    <div class="hero-meta">
+      <div class="meta-chip">Feb – Abr 2025 vs 2026</div>
+      <div class="meta-chip">23 ciudades y A.M.</div>
+      <div class="meta-chip">Fuente: DANE, GEIH</div>
+    </div>
+  </div>
+</div>
+
+<div class="search-section">
+  <label class="search-label" for="searchInput">Busca tu ciudad o región</label>
+  <div class="search-wrapper">
+    <input
+      type="text"
+      id="searchInput"
+      class="search-bar"
+      placeholder="Ej: Bogotá, Medellín, Cali…"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+    >
+    <button class="clear-btn" id="clearBtn" aria-label="Limpiar búsqueda">✕</button>
+    <div class="search-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+      </svg>
+    </div>
+    <div class="suggestions" id="suggestions"></div>
+  </div>
+</div>
+
+<div class="results-area" id="resultsArea"></div>
+<div class="no-results" id="noResults">
+  <div class="no-results-icon">🔍</div>
+  <p class="no-results-text">No encontramos resultados para tu búsqueda.<br>Intenta con otro nombre de ciudad o región.</p>
+</div>
+
+<div class="all-cities-section" id="allCitiesSection">
+  <hr class="section-divider">
+  <h2 class="section-title">Todas las ciudades y regiones</h2>
+  <table class="cities-table" id="allCitiesTable">
+    <thead>
+      <tr>
+        <th>Ciudad / A.M.</th>
+        <th>Feb–Abr 25</th>
+        <th>Feb–Abr 26</th>
+        <th>Diferencia</th>
+      </tr>
+    </thead>
+    <tbody id="allCitiesBody"></tbody>
+  </table>
+</div>
+
+<div class="source-line">
+  <strong>Fuente:</strong> DANE – Gran Encuesta Integrada de Hogares (GEIH). Trimestre móvil febrero – abril 2025 y 2026. La definición de ocupación informal se basa en la resolución de la 17ª CIET de la OIT (2003). Ordenado de mayor a menor por la proporción de informalidad del trimestre móvil febrero – abril 2026. * Variación estadísticamente significativa.
+</div>
+
+<footer class="footer">
+  <p class="footer-text"><span class="footer-brand">El Espectador</span> · Herramienta de datos públicos · DANE 2026</p>
+</footer>
+
+<script>
+// Datos de informalidad — ordenados de mayor a menor por feb26
+const datos = [
+  { ciudad: "Sincelejo",                  region: "Sucre",                  feb25: 68.6, feb26: 66.8, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Cúcuta A.M.",               region: "Norte de Santander",     feb25: 61.7, feb26: 62.6, sigEstadistica: false, tipo: "área metropolitana" },
+  { ciudad: "Riohacha",                   region: "La Guajira",             feb25: 64.5, feb26: 61.2, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Valledupar",                 region: "Cesar",                  feb25: 63.6, feb26: 60.5, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Santa Marta",               region: "Magdalena",              feb25: 60.7, feb26: 58.7, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Montería",                   region: "Córdoba",                feb25: 61.3, feb26: 57.2, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Total nacional",            region: "Colombia",               feb25: 56.8, feb26: 55.1, sigEstadistica: true,  tipo: "total" },
+  { ciudad: "Quibdó",                     region: "Chocó",                  feb25: 58.4, feb26: 54.0, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Florencia",                  region: "Caquetá",                feb25: 55.7, feb26: 53.3, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Popayán",                    region: "Cauca",                  feb25: 59.7, feb26: 53.0, sigEstadistica: true,  tipo: "ciudad" },
+  { ciudad: "Pasto",                      region: "Nariño",                 feb25: 56.6, feb26: 52.7, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Villavicencio",             region: "Meta",                   feb25: 54.5, feb26: 52.3, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Barranquilla A.M.",         region: "Atlántico",              feb25: 49.5, feb26: 52.0, sigEstadistica: false, tipo: "área metropolitana" },
+  { ciudad: "Cali A.M.",                 region: "Valle del Cauca",        feb25: 46.9, feb26: 47.5, sigEstadistica: false, tipo: "área metropolitana" },
+  { ciudad: "Cartagena",                  region: "Bolívar",                feb25: 49.5, feb26: 46.0, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Ibagué",                     region: "Tolima",                 feb25: 49.2, feb26: 45.9, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Neiva",                      region: "Huila",                  feb25: 52.8, feb26: 45.6, sigEstadistica: true,  tipo: "ciudad" },
+  { ciudad: "Bucaramanga A.M.",          region: "Santander",              feb25: 44.3, feb26: 42.9, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Total 23 ciudades y A.M.", region: "Colombia",               feb25: 43.9, feb26: 42.4, sigEstadistica: true,  tipo: "total" },
+  { ciudad: "Armenia",                    region: "Quindío",                feb25: 45.0, feb26: 42.2, sigEstadistica: false, tipo: "ciudad" },
+  { ciudad: "Total 13 ciudades y A.M.", region: "Colombia",               feb25: 42.5, feb26: 41.2, sigEstadistica: false, tipo: "total" },
+  { ciudad: "Pereira A.M.",              region: "Risaralda",              feb25: 40.8, feb26: 39.1, sigEstadistica: false, tipo: "área metropolitana" },
+  { ciudad: "Medellín A.M.",             region: "Antioquia",              feb25: 39.8, feb26: 38.2, sigEstadistica: false, tipo: "área metropolitana" },
+  { ciudad: "Manizales A.M.",            region: "Caldas",                 feb25: 35.1, feb26: 35.0, sigEstadistica: false, tipo: "área metropolitana" },
+  { ciudad: "Tunja",                      region: "Boyacá",                 feb25: 42.8, feb26: 34.8, sigEstadistica: true,  tipo: "ciudad" },
+  { ciudad: "Bogotá D.C.",               region: "Cundinamarca",           feb25: 36.6, feb26: 34.3, sigEstadistica: false, tipo: "ciudad" },
+];
+
+const ciudadesConcretas = datos.filter(d => d.tipo !== 'total');
+const maxRate = Math.max(...datos.map(d => Math.max(d.feb25, d.feb26)));
+
+function normalize(str) {
+  return str.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s*(a\.m\.|a\.m)/g, ' am')
+    .replace(/\./g, '').trim();
+}
+
+function getDiffClass(diff) {
+  if (diff < -0.05) return 'baja';
+  if (diff > 0.05) return 'sube';
+  return 'igual';
+}
+
+function getDiffLabel(diff) {
+  if (diff < -0.05) return `▼ ${Math.abs(diff).toFixed(1)} p.p.`;
+  if (diff > 0.05) return `▲ ${diff.toFixed(1)} p.p.`;
+  return `= ${diff.toFixed(1)} p.p.`;
+}
+
+function getRankingText(ciudad) {
+  const sorted = [...ciudadesConcretas].sort((a, b) => b.feb26 - a.feb26);
+  const idx = sorted.findIndex(d => d.ciudad === ciudad.ciudad);
+  return `Puesto ${idx + 1} de ${sorted.length} ciudades (de mayor a menor informalidad)`;
+}
+
+function getRankingPct(ciudad) {
+  const sorted = [...ciudadesConcretas].sort((a, b) => b.feb26 - a.feb26);
+  const idx = sorted.findIndex(d => d.ciudad === ciudad.ciudad);
+  return (idx / (sorted.length - 1)) * 100;
+}
+
+function getLowestCity() {
+  const sorted = [...ciudadesConcretas].sort((a, b) => a.feb26 - b.feb26);
+  return sorted[0];
+}
+
+function getHighestCity() {
+  const sorted = [...ciudadesConcretas].sort((a, b) => b.feb26 - a.feb26);
+  return sorted[0];
+}
+
+function renderCard(d) {
+  const diff = +(d.feb26 - d.feb25).toFixed(1);
+  const diffClass = getDiffClass(diff);
+  const diffLabel = getDiffLabel(diff);
+  const pct25 = (d.feb25 / maxRate * 100).toFixed(1);
+  const pct26 = (d.feb26 / maxRate * 100).toFixed(1);
+  const rankPct = d.tipo !== 'total' ? getRankingPct(d) : null;
+  const rankText = d.tipo !== 'total' ? getRankingText(d) : null;
+  const isTotal = d.tipo === 'total';
+  const lowest = getLowestCity();
+  const highest = getHighestCity();
+
+  return `
+    <div class="city-card">
+      <div class="card-header">
+        <div class="card-city-name">
+          ${d.ciudad}${d.sigEstadistica ? '*' : ''}
+          <small>${d.region}${d.tipo !== 'ciudad' && d.tipo !== 'total' ? ' · ' + d.tipo : ''}</small>
+        </div>
+        <div class="card-badge">
+          <span class="diff-badge ${diffClass}">${diffLabel}</span>
+        </div>
+      </div>
+      <div class="card-rates">
+        <div class="rate-block periodo-anterior">
+          <div class="rate-period">Feb – Abr 2025</div>
+          <div class="rate-value">${d.feb25.toFixed(1)}<sup>%</sup></div>
+        </div>
+        <div class="rate-block periodo-actual">
+          <div class="rate-period">Feb – Abr 2026</div>
+          <div class="rate-value">${d.feb26.toFixed(1)}<sup>%</sup></div>
+        </div>
+      </div>
+      <div class="card-bar-section">
+        <div class="bar-label">Comparación visual</div>
+        <div class="bar-row">
+          <div class="bar-period-label">Feb–Abr 25</div>
+          <div class="bar-track">
+            <div class="bar-fill anterior" data-width="${pct25}" style="width:0%"></div>
+          </div>
+          <div class="bar-pct">${d.feb25}%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-period-label">Feb–Abr 26</div>
+          <div class="bar-track">
+            <div class="bar-fill actual" data-width="${pct26}" style="width:0%"></div>
+          </div>
+          <div class="bar-pct">${d.feb26}%</div>
+        </div>
+      </div>
+      <div class="card-context">
+        <div class="context-item">
+          <div class="context-value">${diff > 0 ? '+' : ''}${diff.toFixed(1)}</div>
+          <div class="context-label">Var. p.p.</div>
+        </div>
+        <div class="context-item">
+          <div class="context-value">${d.feb26.toFixed(1)}%</div>
+          <div class="context-label">Prop. 2026</div>
+        </div>
+        <div class="context-item">
+          <div class="context-value">${d.sigEstadistica ? 'Sí' : 'No'}</div>
+          <div class="context-label">Sig. estadíst.</div>
+        </div>
+      </div>
+      ${!isTotal ? `
+      <div class="card-ranking">
+        <div class="ranking-label">${rankText}</div>
+        <div class="ranking-bar">
+          <div class="ranking-marker" data-pos="${rankPct}" style="left:0%"></div>
+        </div>
+        <div class="ranking-ends">
+          <span>Mayor informalidad (${highest.ciudad} ${highest.feb26}%)</span>
+          <span>Menor (${lowest.ciudad} ${lowest.feb26}%)</span>
+        </div>
+      </div>` : ''}
+    </div>
+  `;
+}
+
+function animateBars(container) {
+  setTimeout(() => {
+    container.querySelectorAll('.bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width + '%';
+    });
+    container.querySelectorAll('.ranking-marker').forEach(m => {
+      m.style.left = m.dataset.pos + '%';
+    });
+  }, 50);
+}
+
+const input = document.getElementById('searchInput');
+const suggestionsEl = document.getElementById('suggestions');
+const resultsArea = document.getElementById('resultsArea');
+const noResults = document.getElementById('noResults');
+const clearBtn = document.getElementById('clearBtn');
+
+function search(query) {
+  const q = normalize(query);
+  if (!q) return datos;
+  return datos.filter(d =>
+    normalize(d.ciudad).includes(q) ||
+    normalize(d.region).includes(q)
+  );
+}
+
+function showSuggestions(results) {
+  if (!results.length || !input.value.trim()) {
+    suggestionsEl.classList.remove('visible');
+    return;
+  }
+  suggestionsEl.innerHTML = results.slice(0, 6).map(d => `
+    <div class="suggestion-item" data-ciudad="${d.ciudad}">
+      <span class="suggestion-city">${d.ciudad}${d.sigEstadistica ? '*' : ''} <small style="font-weight:400;color:#888">${d.region}</small></span>
+      <span class="suggestion-rate">${d.feb26}%</span>
+    </div>
+  `).join('');
+  suggestionsEl.classList.add('visible');
+}
+
+function showResults(results) {
+  noResults.classList.remove('visible');
+  if (!results.length) {
+    resultsArea.innerHTML = '';
+    noResults.classList.add('visible');
+    return;
+  }
+  resultsArea.innerHTML = results.map(renderCard).join('');
+  animateBars(resultsArea);
+}
+
+input.addEventListener('input', () => {
+  const q = input.value.trim();
+  clearBtn.classList.toggle('visible', q.length > 0);
+  if (!q) {
+    suggestionsEl.classList.remove('visible');
+    resultsArea.innerHTML = '';
+    noResults.classList.remove('visible');
+    return;
+  }
+  const results = search(q);
+  showSuggestions(results);
+  showResults(results);
+});
+
+input.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    suggestionsEl.classList.remove('visible');
+    input.blur();
+  }
+});
+
+suggestionsEl.addEventListener('click', e => {
+  const item = e.target.closest('.suggestion-item');
+  if (!item) return;
+  const ciudad = item.dataset.ciudad;
+  const found = datos.find(d => d.ciudad === ciudad);
+  input.value = found.ciudad;
+  suggestionsEl.classList.remove('visible');
+  showResults([found]);
+  clearBtn.classList.add('visible');
+});
+
+clearBtn.addEventListener('click', () => {
+  input.value = '';
+  clearBtn.classList.remove('visible');
+  suggestionsEl.classList.remove('visible');
+  resultsArea.innerHTML = '';
+  noResults.classList.remove('visible');
+  input.focus();
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrapper')) {
+    suggestionsEl.classList.remove('visible');
+  }
+});
+
+// Build all-cities table
+const tbody = document.getElementById('allCitiesBody');
+datos.forEach(d => {
+  const diff = +(d.feb26 - d.feb25).toFixed(1);
+  const dc = getDiffClass(diff);
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="city-name-cell ${d.tipo === 'total' ? 'is-total' : ''}">${d.ciudad}${d.sigEstadistica ? '*' : ''}</td>
+    <td class="rate-cell">${d.feb25}%</td>
+    <td class="rate-cell">${d.feb26}%</td>
+    <td><span class="diff-cell ${dc}">${diff > 0 ? '+' : ''}${diff.toFixed(1)}</span></td>
+  `;
+  tr.addEventListener('click', () => {
+    input.value = d.ciudad;
+    clearBtn.classList.add('visible');
+    showResults([d]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => input.focus(), 400);
+  });
+  tbody.appendChild(tr);
+});
+
+// Show all cities toggle
+const showBtn = document.createElement('button');
+showBtn.className = 'show-all-btn';
+showBtn.innerHTML = `<span>Ver todas las ciudades</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>`;
+document.querySelector('.source-line').before(showBtn);
+
+const allSection = document.getElementById('allCitiesSection');
+showBtn.addEventListener('click', () => {
+  const open = allSection.classList.toggle('visible');
+  showBtn.innerHTML = open
+    ? `<span>Ocultar tabla completa</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>`
+    : `<span>Ver todas las ciudades</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>`;
+  if (open) allSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+document.querySelector('.source-line').after(allSection);
+</script>
+</body>
+</html>
